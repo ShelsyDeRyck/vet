@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+html,body{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    /* background-color: #b1cfa3; */
+    background-color: #7da581;
+    background-image: url("assets/background-pattern.png");
+    background-size: 200px;
+    background-repeat: repeat;
+}
+
+.search{
+    /* background-color: #f5f5f5; */
+    border-radius: 15px;
+    padding: 15px;
+    width: 60vw;
+    height: 60vh;
+    display: flex;
+    /* justify-content: row; */
+    /* align-items: end; */
+    /* background-color: #ceebd1; */
+    background-color: #c6f1b8;
+    /* background-image: url("assets/cat.jpg"); */
+    /* background-repeat: no-repeat; */
+    /* background-position: 0px -150px; */
+    /* background-size: cover; */
+    /* opacity: 0.8; */
+    /* background-size: 40%; */
+}
