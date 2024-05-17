@@ -1,0 +1,45 @@
+.radio{
+    text-decoration: none;
+}
+.row{
+    justify-content: center;
+    margin-top: 20px;
+}
+.form{
+    display: flex;
+}
+h1 {
+    text-align: center;
+}
+.logo{
+    max-width: 700px;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 15px 0px;
+}
+
+.form-group{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 200px;
+    /* color: white; */
+}
+.form-group label{
+    margin-right: 10px;
+}
+/* .form-group input{
+    background-color: #a7ebaf;
+} */
+
+button.submit{
+    max-width: 100px;
+}
+.btn-success{
+    background-color: #517b55;
+    border-color: #69996e;
+}

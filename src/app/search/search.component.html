@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="row title">
+      <!-- <h1>Pawsibilities</h1> -->
+      <img src="assets/pawsabilities-logo.png" class="logo" alt="logo">
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <form (ngSubmit)="onSubmit($event)" [formGroup]="searchForm">
+          <div class="row">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" formControlName="name">
+            </div>
+            <div class="form-group">
+              <label for="city">City</label>
+              <input type="text" class="form-control" id="city" formControlName="city">
+            </div>
+            <div class="form-group">
+              <label for="type">Type</label>
+              <!-- dropdown -->
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                  {{ selectedValue || 'Select type' }} </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <li *ngFor="let option of options">
+                    <label class="dropdown-item">
+                      <input type="radio" class="radio" name="type" (click)="onRadioChange(option.value)" [value]="option.value" (change)="onRadioChange(option.value)"> {{ option.label }}
+                    </label>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <button type="submit" class="btn btn-success  submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
