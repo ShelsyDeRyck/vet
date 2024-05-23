@@ -112,3 +112,16 @@ def vet_by_id(vet_id):
     else:
       return jsonify(message = "Vet not found!"), 404
   
+   # -------------------- types Endpoints --------------------
+   
+@app.route("/api/types", methods=["GET"])
+def type_crud():
+# GET: Get all types
+  if request.method == "GET":
+    return jsonify(types = DataRepository.read_types()),200
+    
+@app.route("/api/types/<int:vet_id>", methods=["GET"])  
+def vet_by_id(vet_id):
+  # GET: Get a vet by ID
+  if request.method == "GET":
+    return jsonify(vet = DataRepository.read_vet(vet_id))
