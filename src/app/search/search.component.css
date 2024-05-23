@@ -3,7 +3,13 @@
 }
 .row{
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 15px;
+    flex-wrap: nowrap;
+}
+@media screen and (max-width: 1000px) {
+    .row{
+        flex-wrap: wrap;
+    }
 }
 .form{
     display: flex;
@@ -12,21 +18,23 @@ h1 {
     text-align: center;
 }
 .logo{
-    max-width: 700px;
+    max-width: 250px;
 }
 .container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin: 15px 0px;
+    height: 95%;
 }
 
-.form-group{
 
+.form-group{
     display: flex;
     justify-content: center;
     align-items: center;
     max-width: 200px;
+    margin-top: 10px;
     /* color: white; */
 }
 .form-group label{

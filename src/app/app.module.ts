@@ -7,10 +7,12 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SearchComponent } from './search/search.component';
+import { VetlistComponent } from './vetlist/vetlist.component';
 @NgModule({
   declarations: [
     AppComponent,
-    SearchComponent
+    SearchComponent,
+    VetlistComponent
   ],
   imports: [
     BrowserModule,

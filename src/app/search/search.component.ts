@@ -25,9 +25,10 @@ export class SearchComponent {
 
   selectedValue: string;
   options = [
-    { value: 'household-pets', label: 'household pets' },
+    { value: 'household-pets', label: 'Household pets' },
     { value: 'reptile', label: 'Reptiles' },
-    { value: 'ruminants', label: 'Ruminants (Cows & Horses)' },
+    // { value: 'ruminants', label: 'Ruminants (Cows & Horses)' },
+    { value: 'farm', label: 'Farm'},
     { value: 'aquatic', label: 'Aquatic' },
     { value: 'rodents', label: 'Rodents' },
     { value: 'exotic', label: 'Exotic' },
