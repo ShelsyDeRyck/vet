@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl , Validators} from '@angular/forms';
+// import { HttpClient } from '@angular/common/http';
+// import { Observable } from 'rxjs';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -7,8 +9,45 @@ import { FormGroup, FormControl , Validators} from '@angular/forms';
   
 })
 export class SearchComponent {
+  private baseUrl = 'http://127.0.0.1:5000/api/types';  
+  types: any[] = [];
 
-  constructor() { }
+  // constructor(private http: HttpClient) { 
+  //   console.log(this.getType());
+  // }
+
+  // getTypes(): Observable<Type[]> {
+  //   return this.http.get<Type[]>(this.baseUrl);
+  // }
+
+  getType() {
+    // return this.http.get(this.baseUrl);
+    fetch(this.baseUrl)
+    .then(response => response.json())
+    .then(json => {
+        this.types = json;
+        console.log('Types:', this.types);
+      })
+    .catch(err => console.error(err));
+  }
+
+  
+
+  // searchRecipe() {
+  //   fetch(this.url)
+  //     .then(response => response.json())
+  //     .then(json => {
+  //         this.recipes = json;
+  //         this.search = this.recipes.filter(recipes => recipes.title.includes(this.mySearch));
+  //       if (this.search) {
+  //         console.log('Recipes:', this.search);
+  //       } else {
+  //         console.log(`No recipes found for ${this.search}`);
+  //       }
+  //     })
+  //     .catch(err => console.error(err));
+  // }
+  constructor() { this.getType(); }
   title = 'Pawsibilities';
   searchForm = new FormGroup({
     name: new FormControl(""),

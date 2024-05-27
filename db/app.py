@@ -4,16 +4,19 @@ from flask_cors import CORS
 
 # Start app
 app = Flask(__name__)
+# CORS(app, resources={r"/api/*": {"origins": "http://localhost:4200"}})
 CORS(app)
 
 # Custom endpoint
-endpoint = '/api/v1'
+# endpoint = '/api'
+
+
 
 # ROUTES
 
 # -------------------- User Endpoints --------------------
 
-@app.route("/api/users", methods=["GET", "POST"])
+@app.route("/api/users/", methods=["GET", "POST"])
 def user_crud():
   # GET: Get all users
   if request.method == "GET":
@@ -47,7 +50,7 @@ def user_by_id(user_id):
   
   # -------------------- pets Endpoints --------------------
   
-@app.route("/api/pets", methods=["GET", "POST"])
+@app.route("/api/pets/", methods=["GET", "POST"])
 def pet_crud():
   # GET: Get all pets
   if request.method == "GET":
@@ -81,7 +84,7 @@ def pet_by_id(pet_id):
 
   # -------------------- vets Endpoints --------------------
   
-@app.route("/api/vets", methods=["GET", "POST"])
+@app.route("/api/vets/", methods=["GET", "POST"])
 def vet_crud():
   # GET: Get all vets
   if request.method == "GET":
@@ -114,14 +117,35 @@ def vet_by_id(vet_id):
   
    # -------------------- types Endpoints --------------------
    
-@app.route("/api/types", methods=["GET"])
-def type_crud():
-# GET: Get all types
-  if request.method == "GET":
-    return jsonify(types = DataRepository.read_types()),200
+# @app.route("/api/types", methods=["GET"])
+# def type_crud():
+# # GET: Get all types
+#   if request.method == "GET":
+#     return jsonify(types = DataRepository.read_types()),200
     
-@app.route("/api/types/<int:vet_id>", methods=["GET"])  
-def vet_by_id(vet_id):
-  # GET: Get a vet by ID
-  if request.method == "GET":
-    return jsonify(vet = DataRepository.read_vet(vet_id))
+# @app.route("/api/types/<int:vet_id>", methods=["GET"])  
+# def vet_by_id(vet_id):
+#   # GET: Get a vet by ID
+#   if request.method == "GET":
+#     return jsonify(vet = DataRepository.read_vet(vet_id))
+
+@app.route("/api/types/", methods=["GET"])
+def get_types():
+    # GET: Get all types
+    print(DataRepository.read_types())
+    if request.method == "GET":
+        response = jsonify(types=DataRepository.read_types()), 200
+        # response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+      
+@app.route("/api/types/<int:type_id>", methods=["GET"])
+def get_type_by_id(type_id):
+    # GET: Get a vet by ID
+    if request.method == "GET":
+        response = jsonify(type=DataRepository.read_type(type_id)), 200
+        # response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+
+if __name__ == '__main__':
+  app.run(port=5000)
+  # app.run(host='0.0.0.0', port=5000)
