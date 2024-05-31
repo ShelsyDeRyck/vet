@@ -12,24 +12,4 @@ html,body{
     background-repeat: repeat;
 }
 
-.search {
-    border-radius: 15px;
-    padding: 15px;
-    width: 60vw;
-    /* height: 70vh; */
-    display: flex;
-    background-color: #c6f1b8;
-    justify-content: center;
-}
 
-@media screen and (min-height: 690px) {
-    .search{
-        border-radius: 15px;
-        padding: 15px;
-        width: 60vw;
-        height: 60vh;
-        display: flex;
-        background-color: #c6f1b8;
-        justify-content: center;
-    }
-}
