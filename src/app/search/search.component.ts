@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl , Validators} from '@angular/forms';
-import { SharedService } from '../shared/shared.service';
+
 // import { HttpClient } from '@angular/common/http';
 // import { Observable } from 'rxjs';
 @Component({
@@ -67,7 +67,7 @@ export class SearchComponent {
 
 
   
-  constructor(private sharedService: SharedService) { 
+  constructor() { 
     this.getType();
    }
   title = 'Pawsibilities';
@@ -115,18 +115,7 @@ export class SearchComponent {
     formData.type = this.selectedValue; // Assigning the selected value to the form data
     console.log(formData);
 
-    // Creating a new FormData instance
-    const form = new FormData();
-
-    // Appending each field to the FormData instance
-    for (const key in formData) {
-      if (formData.hasOwnProperty(key)) {
-        form.append(key, formData[key]);
-      }
-    }
-
-    // Storing the FormData instance in the shared service
-    this.sharedService.setFormData(form);
+    let search = callbackFunction(formData);
     // this.addpet();
   }
   
@@ -136,6 +125,11 @@ export class SearchComponent {
   }
 }
 
+function callbackFunction(formData) {
+  let data = handleData('http://127.0.0.1:5000/api/vets/');
+
+  return data;
+}
 
 const handleData = function (url, method = 'GET', body = null) {
   fetch(url, {
