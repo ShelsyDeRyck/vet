@@ -58,9 +58,7 @@ def pet_crud():
   
   # POST: Create a new pet
   elif request.method == "POST":
-    print("hreuiewhrueiwrhuiwrh")
     data = DataRepository.json_or_formdata(request)
-    print("hreuiewhrueiwrhuiwrh")
     print(data)
     new_id = DataRepository.create_pet(data['breed'], data['species'], data['name'], data['sterilized'], data['microchip'], data['gender'], data['year_of_birth'])
     return jsonify(message = "Pet created successfully!", id = new_id), 201

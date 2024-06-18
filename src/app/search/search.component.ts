@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl , Validators} from '@angular/forms';
+import { SharedService } from '../shared/shared.service';
 // import { HttpClient } from '@angular/common/http';
 // import { Observable } from 'rxjs';
 @Component({
@@ -66,7 +67,7 @@ export class SearchComponent {
 
 
   
-  constructor() { 
+  constructor(private sharedService: SharedService) { 
     this.getType();
    }
   title = 'Pawsibilities';
@@ -107,11 +108,26 @@ export class SearchComponent {
   
 
   onSubmit(event) {
-    event.preventDefault()
+    event.preventDefault();
+
+    // Extracting form data from the reactive form
     const formData = this.searchForm.value;
-    formData.type = this.selectedValue;
+    formData.type = this.selectedValue; // Assigning the selected value to the form data
     console.log(formData);
-    this.addpet();
+
+    // Creating a new FormData instance
+    const form = new FormData();
+
+    // Appending each field to the FormData instance
+    for (const key in formData) {
+      if (formData.hasOwnProperty(key)) {
+        form.append(key, formData[key]);
+      }
+    }
+
+    // Storing the FormData instance in the shared service
+    this.sharedService.setFormData(form);
+    // this.addpet();
   }
   
   

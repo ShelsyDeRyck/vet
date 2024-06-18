@@ -1,1 +1,12 @@
 <p>vetlist works!</p>
+<div *ngIf="receivedFormData">
+    <h2>Received Form Data</h2>
+    <ul>
+      <li *ngFor="let key of receivedFormData.keys()">
+        {{key}}: {{receivedFormData.get(key)}}
+      </li>
+    </ul>
+  
+    <h2>Form Data as JSON</h2>
+    <pre>{{ getFormDataAsJson() | json }}</pre>
+</div>

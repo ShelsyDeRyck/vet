@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-// import { SearchComponent } from './search/search.component';
+import { SearchComponent } from './search/search.component';
 import { VetlistComponent } from './vetlist/vetlist.component';
 
 export const routes: Routes = [
@@ -13,6 +13,14 @@ export const routes: Routes = [
   {
     path: 'list',
     component: VetlistComponent
+  },
+  { 
+    path: 'send',
+     component: SearchComponent 
+  },
+  { 
+    path: 'receive',
+   component: VetlistComponent 
   }
 ];
 
