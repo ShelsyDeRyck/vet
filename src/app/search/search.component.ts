@@ -85,13 +85,6 @@ export class SearchComponent {
     const petUrl = 'http://127.0.0.1:5000/api/pets/';
     
     const jsonObject = JSON.stringify({
-      // breed : document.querySelector('.js-add-breed').value,
-      // species: document.querySelector('.js-add-species').value,
-      // name: document.querySelector('.js-add-age').value,
-      // sterilized : document.querySelector('.js-add-sterilized').value,
-      // microchip : document.querySelector('.js-add-microchip').value,
-      // gender : document.querySelector('.js-add-gender').value,
-      // year_of_birth : document.querySelector('.js-add-year_of_birth').value
       breed : "German Shepherd",
       species: "Dog",
       name: "Shakira",
@@ -126,8 +119,8 @@ export class SearchComponent {
 }
 
 function callbackFunction(formData) {
-  let data = handleData('http://127.0.0.1:5000/api/vets/');
-
+  let data = handleData('http://127.0.0.1:5000/api/pets');
+  console.log(data);
   return data;
 }
 

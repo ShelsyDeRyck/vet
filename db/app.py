@@ -57,32 +57,39 @@ def pet_crud():
     return jsonify(pets = DataRepository.read_pets()),200
   
   # POST: Create a new pet
+<<<<<<< HEAD
   elif request.method == "POST":
     data = DataRepository.json_or_formdata(request)
     print(data)
     new_id = DataRepository.create_pet(data['breed'], data['species'], data['name'], data['sterilized'], data['microchip'], data['gender'], data['year_of_birth'])
     return jsonify(message = "Pet created successfully!", id = new_id), 201
+=======
+  # elif request.method == "POST":
+  #   data = DataRepository.json_or_formdata(request)
+  #   new_id = DataRepository.create_pet(data['breed'], data['species'], data['name'], data['sterilized'], data['microchip'], data['gender'], data['year_of_birth'])
+  #   return jsonify(message = "Pet created successfully!", id = new_id), 201
+>>>>>>> parent of 1caa380 (python create pet works)
   
   # POST: Create a new pet
-  # elif request.method == "POST":
-  #     breed = request.args.get('breed')
-  #     species = request.args.get('species')
-  #     name = request.args.get('name')
-  #     sterilized = request.args.get('sterilized')
-  #     microchip = request.args.get('microchip')
-  #     gender = request.args.get('gender')
-  #     year_of_birth = request.args.get('year_of_birth')
-  #     # Check for missing data and handle appropriately
-  #     print(breed, species, name, sterilized, microchip, gender, year_of_birth)
-  #     if not all([breed, species, name, sterilized, microchip, gender, year_of_birth]):
-  #         return jsonify({"error": "Missing required data"}), 405
-  #     try:
-  #         new_id = DataRepository.create_pet(breed, species, name, sterilized, microchip, gender, year_of_birth)
-  #         return jsonify(message="Pet created successfully!", id=new_id), 201
-  #     except Exception as e:
-  #         return jsonify({"error": f"Failed to create pet: {str(e)}"}), 500
-  # # Handle other methods (e.g., PUT, DELETE) if needed
-  # return jsonify({"error": "Unsupported method"}), 405
+  elif request.method == "POST":
+      breed = request.args.get('breed')
+      species = request.args.get('species')
+      name = request.args.get('name')
+      sterilized = request.args.get('sterilized')
+      microchip = request.args.get('microchip')
+      gender = request.args.get('gender')
+      year_of_birth = request.args.get('year_of_birth')
+      # Check for missing data and handle appropriately
+      print(breed, species, name, sterilized, microchip, gender, year_of_birth)
+      if not all([breed, species, name, sterilized, microchip, gender, year_of_birth]):
+          return jsonify({"error": "Missing required data"}), 400
+      try:
+          new_id = DataRepository.create_pet(breed, species, name, sterilized, microchip, gender, year_of_birth)
+          return jsonify(message="Pet created successfully!", id=new_id), 201
+      except Exception as e:
+          return jsonify({"error": f"Failed to create pet: {str(e)}"}), 500
+  # Handle other methods (e.g., PUT, DELETE) if needed
+  return jsonify({"error": "Unsupported method"}), 405
 
 @app.route("/api/pets/<int:pet_id>", methods=["GET", "PUT", "DELETE"])
 def pet_by_id(pet_id):
