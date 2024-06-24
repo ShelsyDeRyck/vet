@@ -37,7 +37,7 @@ def user_by_id(user_id):
   elif request.method == "PUT":
     data = DataRepository.json_or_formdata(request)
     values = DataRepository.update_user(data['name'], data['last_name'], data['password'], data['email'], user_id)
-    print(values)
+    # print(values)
     return jsonify(user_id = user_id), 200
   # DELETE: Delete a user
   elif request.method == "DELETE":
@@ -57,45 +57,16 @@ def pet_crud():
     return jsonify(pets = DataRepository.read_pets()),200
   
   # POST: Create a new pet
-<<<<<<< HEAD
-<<<<<<< HEAD
   elif request.method == "POST":
     data = DataRepository.json_or_formdata(request)
-    print(data)
+    # print(data)
     new_id = DataRepository.create_pet(data['breed'], data['species'], data['name'], data['sterilized'], data['microchip'], data['gender'], data['year_of_birth'])
     return jsonify(message = "Pet created successfully!", id = new_id), 201
-=======
-=======
->>>>>>> parent of 1caa380 (python create pet works)
+
   # elif request.method == "POST":
   #   data = DataRepository.json_or_formdata(request)
   #   new_id = DataRepository.create_pet(data['breed'], data['species'], data['name'], data['sterilized'], data['microchip'], data['gender'], data['year_of_birth'])
   #   return jsonify(message = "Pet created successfully!", id = new_id), 201
-<<<<<<< HEAD
->>>>>>> parent of 1caa380 (python create pet works)
-=======
->>>>>>> parent of 1caa380 (python create pet works)
-  
-  # POST: Create a new pet
-  elif request.method == "POST":
-      breed = request.args.get('breed')
-      species = request.args.get('species')
-      name = request.args.get('name')
-      sterilized = request.args.get('sterilized')
-      microchip = request.args.get('microchip')
-      gender = request.args.get('gender')
-      year_of_birth = request.args.get('year_of_birth')
-      # Check for missing data and handle appropriately
-      print(breed, species, name, sterilized, microchip, gender, year_of_birth)
-      if not all([breed, species, name, sterilized, microchip, gender, year_of_birth]):
-          return jsonify({"error": "Missing required data"}), 400
-      try:
-          new_id = DataRepository.create_pet(breed, species, name, sterilized, microchip, gender, year_of_birth)
-          return jsonify(message="Pet created successfully!", id=new_id), 201
-      except Exception as e:
-          return jsonify({"error": f"Failed to create pet: {str(e)}"}), 500
-  # Handle other methods (e.g., PUT, DELETE) if needed
-  return jsonify({"error": "Unsupported method"}), 405
 
 @app.route("/api/pets/<int:pet_id>", methods=["GET", "PUT", "DELETE"])
 def pet_by_id(pet_id):
@@ -106,7 +77,7 @@ def pet_by_id(pet_id):
   elif request.method == "PUT":
     data = DataRepository.json_or_formdata(request)
     values = DataRepository.update_pet(data['breed'], data['species'], data['name'], data['sterilized'], data['microchip'], data['gender'], data['year_of_birth'], pet_id)
-    print(values)
+    # print(values)
     return jsonify(pet_id = pet_id), 200
   # DELETE: Delete a pet
   elif request.method == "DELETE":
@@ -118,6 +89,22 @@ def pet_by_id(pet_id):
   
 
   # -------------------- vets Endpoints --------------------
+@app.route('/api/vets/search/', methods=['GET'])
+def vet_searchd(data):
+    # print("-+-+-+-+-+-+-")
+    # print(request.args)
+    try:
+        # data = DataRepository.json_or_formdata(request)
+        result = DataRepository.search_vets_available(data['name'], data['location'], data['type'])
+        return jsonify(result), 200
+
+    except KeyError as e:
+        # Handle missing keys if necessary
+        return jsonify({"error": f"Missing parameter: {str(e)}"}), 400
+
+    except Exception as e:
+        # Handle other exceptions
+        return jsonify({"error": str(e)}), 500
   
 @app.route("/api/vets/", methods=["GET", "POST"])
 def vet_crud():
@@ -140,7 +127,7 @@ def vet_by_id(vet_id):
   elif request.method == "PUT":
     data = DataRepository.json_or_formdata(request)
     values = DataRepository.update_vet(data['name'], data['description'], data['location'], data['email'], data['type_id'], vet_id)
-    print(values)
+    # print(values)
     return jsonify(vet_id = vet_id), 200
   # DELETE: Delete a vet
   elif request.method == "DELETE":
@@ -167,7 +154,7 @@ def vet_by_id(vet_id):
 @app.route("/api/types/", methods=["GET"])
 def get_types():
     # GET: Get all types
-    print(DataRepository.read_types())
+    # print(DataRepository.read_types())
     if request.method == "GET":
         response = jsonify(types=DataRepository.read_types()), 200
         # response.headers.add('Access-Control-Allow-Origin', '*')

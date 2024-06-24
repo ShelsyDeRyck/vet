@@ -6,7 +6,11 @@
         {{key}}: {{receivedFormData.get(key)}}
       </li>
     </ul>
+
+    <li *ngFor="let key of receivedFormData.keys()">
+      {{key}}: {{receivedFormData.get(key)}}
+    </li>
   
-    <h2>Form Data as JSON</h2>
-    <pre>{{ getFormDataAsJson() | json }}</pre>
+    <!-- <h2>Form Data as JSON</h2>
+    <pre>{{ getFormDataAsJson() | json }}</pre> -->
 </div>

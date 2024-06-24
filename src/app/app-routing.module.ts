@@ -20,7 +20,7 @@ export const routes: Routes = [
   },
   { 
     path: 'receive',
-   component: VetlistComponent 
+    component: VetlistComponent 
   }
 ];
 

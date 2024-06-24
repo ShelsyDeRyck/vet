@@ -42,4 +42,6 @@ testem.log
 Thumbs.db
 
 
-/db/repositories
+/db/repositories/__pycache__
+../node_modules
+../../pet_venv

@@ -51,15 +51,7 @@ export class SearchComponent {
         } else {
           throw new Error('Fetched data does not contain an array');
         }
-        // Log the fetched array of objects
-        // console.log('Fetched types:', this.types); 
-
         this.typeNames = this.types.map(item => item.type);
-        // console.log('Type names:', this.typeNames); // Log the array of type names
-
-        // if (this.types.length > 0) {
-        //   console.log('First type:', this.types[0].type);
-        // }
         this.initSelect();
       })
       .catch(err => console.error('Fetch error:', err));
@@ -76,9 +68,7 @@ export class SearchComponent {
     city: new FormControl(""),
     type: new FormControl("")
   });
-  callbackAddpet = function () {
-    console.log("callback adapt train called");
-  }
+  
 
   
   addpet = function () {
@@ -94,7 +84,7 @@ export class SearchComponent {
       year_of_birth : 2012
     })
 
-    handleData(petUrl, 'POST', jsonObject);
+    // handleData(petUrl, 'POST', jsonObject);
     handleData(petUrl);
   }
 
@@ -105,11 +95,15 @@ export class SearchComponent {
 
     // Extracting form data from the reactive form
     const formData = this.searchForm.value;
-    formData.type = this.selectedValue; // Assigning the selected value to the form data
+    formData.type = this.selectedValue; 
     console.log(formData);
 
-    let search = callbackFunction(formData);
-    // this.addpet();
+    // let search = callbackFunction(formData);
+    // console.log(search);
+    callbackFunction(formData).then((data) => {
+      console.log(data);
+    })
+    // console.log(this.addpet());
   }
   
   
@@ -118,33 +112,48 @@ export class SearchComponent {
   }
 }
 
-function callbackFunction(formData) {
-  let data = handleData('http://127.0.0.1:5000/api/pets');
-  console.log(data);
-  return data;
+async function callbackFunction(formData) {
+  try {
+    const urlWithParams = `http://127.0.0.1:5000/api/vets/search/?location=${encodeURIComponent(formData.city)}&name=${encodeURIComponent(formData.name)}&type=${encodeURIComponent(formData.type)}`;
+    let result = await handleData(urlWithParams, 'GET', JSON.stringify(formData));
+    // console.log(result);
+    // console.log(typeof result);
+    return result;
+  } catch (error) {
+    console.error('Error:', error);
+  }
 }
 
-const handleData = function (url, method = 'GET', body = null) {
-  fetch(url, {
+
+const handleData = function (url, method = 'GET', body: any = null) {
+  const options: RequestInit = {
     method: method,
-    body: body,
-    headers: {'Content-Type': 'application/json', 'User-Agent': 'insomnia/8.6.0'},
-  })
-    .then(function (response) {
+    headers: {
+      'Content-Type': 'application/json',
+      'User-Agent': 'insomnia/8.6.0'
+    },
+  };
+
+  // Conditionally add the body property
+  if (body && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
+    options.body = body;
+  }
+
+  return fetch(url, options)
+    .then(response => {
       if (!response.ok) {
-        console.warn(`>> Problem with fetch(). Statuscode: ${response.status}`);
-      } else {
-        console.info('>>Response from server came back');
-        return response.json();
+        console.warn(`>> Problem with fetch(). Status code: ${response.status}`);
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+      console.info('>> Response from server came back');
+      return response.json();
     })
-    .then(function (jsonObject) {
-      if (jsonObject) {
-        console.info('>> JSONobject is made');
-        // return jsonObject;
-      }
+    .then(jsonObject => {
+      console.info('>> JSON object is made');
+      return jsonObject;  // Ensure the JSON object is returned
     })
-    .catch(function (error) {
-      console.warn(`>>fault with parsing: ${error}`);
+    .catch(error => {
+      console.warn(`>> Fault with parsing: ${error}`);
+      throw error;  // Ensure the error is propagated
     });
 };
